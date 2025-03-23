@@ -3,90 +3,57 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>OSINT-Karte Mauro Ladisa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+e2pCvUglrNymk58V38eG3tR4lNlUZ7+60Z5Pz4uw="
-    crossorigin=""
-  />
+  <title>OSINT Map Mauro Ladisa</title>
   <style>
-    html, body {
-      margin: 0;
-      height: 100%;
+    body {
       font-family: Arial, sans-serif;
+      margin: 0;
       display: flex;
     }
-    #info {
+    .sidebar {
       width: 300px;
-      background: #f9f9f9;
-      padding: 1rem;
-      border-right: 1px solid #ccc;
-      overflow-y: auto;
-    }
-    #map {
-      flex: 1;
+      background: #f4f4f4;
+      padding: 20px;
       height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
     }
-    table {
+    .content {
+      flex: 1;
+      position: relative;
+    }
+    iframe {
       width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9em;
+      height: 100vh;
+      border: none;
     }
-    td {
-      padding: 4px 6px;
-      border-bottom: 1px solid #ddd;
-    }
-    td:first-child {
-      font-weight: bold;
-      width: 100px;
-    }
-    a {
-      color: #3366cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
+    h2 { margin-top: 0; }
+    .pdf-link {
+      display: block;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <div id="info">
-    <table>
-      <tr><td>Adresse</td><td>Via Riccardo Ciusa 23, 70132 Bari, IT</td></tr>
-      <tr><td>Weitere Adressen</td><td>Via Enrico Pessina 20 / Via Siponto 1-P 3</td></tr>
-      <tr><td>Firma CH</td><td>E.V. Bau GmbH</td></tr>
-      <tr><td>E-Mail</td><td><a href="mailto:mauroedilizialadisa@legalmail.it">mauroedilizialadisa@legalmail.it</a></td></tr>
-      <tr><td>Steuer-ID</td><td>587537 LDSMRA89B27A662I</td></tr>
-      <tr><td>Twitter</td><td><a href="https://x.com/pupacchione22" target="_blank">@pupacchione22</a></td></tr>
-      <tr><td>Medienbericht</td><td><a href="https://www.lagazzettadelmezzogiorno.it/news/bari/1489312/acquaviva-delle-fonti-intimidazione-mafiosa-a-societa-di-rifiuti-condannati-gli-autori-dellagguato.html" target="_blank">Zeitungsartikel</a></td></tr>
-    </table>
+  <div class="sidebar">
+    <h2>Standortdaten Mauro Ladisa</h2>
+    <p><strong>Adresse:</strong> Via Riccardo Ciusa 23, 70132 Bari, IT</p>
+    <p><strong>Weitere Adressen:</strong> Via Enrico Pessina 20 / Via Siponto 1-P 3</p>
+    <p><strong>Telefon:</strong> 07805610727</p>
+    <p><strong>Firma:</strong> E.V. Bau GmbH</p>
+    <p><strong>E-Mail:</strong> mauroedilizialadisa@legalmail.it</p>
+    <p><strong>Twitter:</strong> @pupacchione22</p>
+    <h3>📄 Dokumente</h3>
+    <a class="pdf-link" href="docs/DNS_Report.pdf" target="viewer">DNS Report</a>
+    <a class="pdf-link" href="docs/IP_Lookup_Baden.pdf" target="viewer">IP Lookup (Baden)</a>
+    <a class="pdf-link" href="docs/HTTP_Headers.pdf" target="viewer">HTTP Headers</a>
+    <a class="pdf-link" href="docs/Site_Report_Netcraft.pdf" target="viewer">Site Report</a>
+    <a class="pdf-link" href="docs/Port_Scan_18.197.pdf" target="viewer">Port Scan 18.197</a>
+    <a class="pdf-link" href="docs/CRT_SH.pdf" target="viewer">Zertifikate</a>
+    <a class="pdf-link" href="docs/Port_Scan_52.59.pdf" target="viewer">Port Scan 52.59</a>
   </div>
-  <div id="map"></div>
-
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j7kC7/JdYnikdL1zYwG+3c04W2UjWoypZ5F8J/k="
-    crossorigin=""
-  ></script>
-  <script>
-    var map = L.map('map').setView([41.114, 16.869], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    const locations = [
-      { name: "Via Riccardo Ciusa 23", lat: 41.114, lon: 16.869 },
-      { name: "Via Enrico Pessina 20", lat: 41.110, lon: 16.862 },
-      { name: "Via Siponto 1-P 3", lat: 41.112, lon: 16.871 },
-      { name: "E.V. Bau GmbH – Schweiz (Luzern, hypothetisch)", lat: 47.0502, lon: 8.3093 }
-    ];
-
-    locations.forEach(loc => {
-      L.marker([loc.lat, loc.lon]).addTo(map).bindPopup(loc.name);
-    });
-  </script>
+  <div class="content">
+    <iframe name="viewer" src=""></iframe>
+  </div>
 </body>
 </html>
