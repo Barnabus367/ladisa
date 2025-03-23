@@ -3,57 +3,61 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>OSINT Map Mauro Ladisa</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      display: flex;
-    }
-    .sidebar {
-      width: 300px;
-      background: #f4f4f4;
-      padding: 20px;
-      height: 100vh;
-      overflow-y: auto;
-      border-right: 1px solid #ccc;
-    }
-    .content {
-      flex: 1;
-      position: relative;
-    }
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
-    }
-    h2 { margin-top: 0; }
-    .pdf-link {
-      display: block;
-      margin-bottom: 10px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OSINT Map – Mauro Ladisa</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Standortdaten Mauro Ladisa</h2>
-    <p><strong>Adresse:</strong> Via Riccardo Ciusa 23, 70132 Bari, IT</p>
-    <p><strong>Weitere Adressen:</strong> Via Enrico Pessina 20 / Via Siponto 1-P 3</p>
-    <p><strong>Telefon:</strong> 07805610727</p>
-    <p><strong>Firma:</strong> E.V. Bau GmbH</p>
-    <p><strong>E-Mail:</strong> mauroedilizialadisa@legalmail.it</p>
-    <p><strong>Twitter:</strong> @pupacchione22</p>
-    <h3>📄 Dokumente</h3>
-    <a class="pdf-link" href="docs/DNS_Report.pdf" target="viewer">DNS Report</a>
-    <a class="pdf-link" href="docs/IP_Lookup_Baden.pdf" target="viewer">IP Lookup (Baden)</a>
-    <a class="pdf-link" href="docs/HTTP_Headers.pdf" target="viewer">HTTP Headers</a>
-    <a class="pdf-link" href="docs/Site_Report_Netcraft.pdf" target="viewer">Site Report</a>
-    <a class="pdf-link" href="docs/Port_Scan_18.197.pdf" target="viewer">Port Scan 18.197</a>
-    <a class="pdf-link" href="docs/CRT_SH.pdf" target="viewer">Zertifikate</a>
-    <a class="pdf-link" href="docs/Port_Scan_52.59.pdf" target="viewer">Port Scan 52.59</a>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Profilinformationen</h2>
+      <ul>
+        <li><strong>Adresse:</strong> Via Riccardo Ciusa 23, 70132 Bari, IT</li>
+        <li><strong>Weitere Adressen:</strong><br>Via Enrico Pessina 20<br>Via Siponto 1-P 3</li>
+        <li><strong>Firma (CH):</strong> E.V. Bau GmbH</li>
+        <li><strong>Telefon:</strong> +41 78 056 10 727</li>
+        <li><strong>E-Mail:</strong> <a href="mailto:mauroedilizialadisa@legalmail.it">mauroedilizialadisa@legalmail.it</a></li>
+        <li><strong>Twitter:</strong> <a href="https://x.com/pupacchione22" target="_blank">@pupacchione22</a></li>
+        <li><strong>Medienbericht:</strong> <a href="https://www.lagazzettadelmezzogiorno.it/news/bari/1489312/acquaviva-delle-fonti-intimidazione-mafiosa-a-societa-di-rifiuti-condannati-gli-autori-dellagguato.html" target="_blank">Zeitungsartikel</a></li>
+      </ul>
+
+      <h2>Doks (PDFs)</h2>
+      <ul class="pdf-list">
+        <li><a href="docs/DNS_Report_ev-bau.pdf" target="_blank">ev-bau.ch DNS Report</a></li>
+        <li><a href="docs/IP_Lookup_831376187.pdf" target="_blank">IP Lookup 83.137.6.187</a></li>
+        <li><a href="docs/HTTP_Header_ev-bau.pdf" target="_blank">ev-bau.ch HTTP Header</a></li>
+        <li><a href="docs/Site_Report_ev-bau.pdf" target="_blank">Netcraft Site Report</a></li>
+        <li><a href="docs/PortScan_18.197.248.23.pdf" target="_blank">Port Scan 18.197.248.23</a></li>
+        <li><a href="docs/PortScan_52.59.120.70.pdf" target="_blank">Port Scan 52.59.120.70</a></li>
+        <li><a href="docs/SSL_Certificates.pdf" target="_blank">SSL-Zertifikate (crt.sh)</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <div id="map"></div>
+    </main>
   </div>
-  <div class="content">
-    <iframe name="viewer" src=""></iframe>
-  </div>
+
+  <script>
+    var map = L.map('map').setView([41.1255958, 16.8663677], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const locations = [
+      { name: "Via Riccardo Ciusa 23", coords: [41.1255958, 16.8663677] },
+      { name: "Via Enrico Pessina 20", coords: [41.111244, 16.855275] },
+      { name: "Via Siponto 1-P 3", coords: [41.109782, 16.876524] },
+      { name: "E.V. Bau GmbH (CH)", coords: [47.1392, 8.5671] },
+      { name: "IP-Adresse: 83.137.6.187 (Baden)", coords: [47.4746, 8.3064] }
+    ];
+
+    locations.forEach(loc => {
+      L.marker(loc.coords).addTo(map).bindPopup(loc.name);
+    });
+  </script>
 </body>
 </html>
